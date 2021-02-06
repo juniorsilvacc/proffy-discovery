@@ -55,3 +55,10 @@ textarea{
     width: 90vw;
     max-width: 700px;
 }
+/* A parti de 700px os rem passaram a valer 1.2rem = 12px 1.8rem = 18px etc... */
+@media (min-width: 700px){
+    :root{
+        /* Todo 1rem vai ser relativo a 10px */
+        font-size: 62.5%; 
+    }
+}

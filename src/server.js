@@ -16,23 +16,6 @@ const proffys = [
         time_to: [
             1220
         ]
-    },
-    {
-        name: "Paulo Henrique",
-        avatar: "https://avatars.githubusercontent.com/u/43589505?s=460&u=7c7159850e84526c0127a00fa34e70da1a938e4f&v=4", 
-        whatsapp: "83 996719622", 
-        bio: "Enstusiasta das melhores tecnologias de programação avançadas do mercado.", 
-        subject: "Programação", 
-        cost: "20", 
-        weekday: [
-            1
-        ], 
-        time_from: [
-            720
-        ], 
-        time_to: [
-            1220
-        ]
     }
 ]
 
@@ -60,6 +43,12 @@ const weekdays = [
 ]
 
 // Funcionalidades da aplicação
+function getSubject(subjectNumber){
+    const arrayPosition = +subjectNumber - 1
+    return subjects[arrayPosition]
+}
+
+
 function pageLanding(req, res){
     res.render("index.html");
 }
@@ -77,9 +66,26 @@ function pageStudy(req, res){
 
 
 function pageGiveClasses(req, res){
-    res.render("give-classes.html");
-}
+    const data = req.query
 
+    // Se tiver dados (data)
+    // Pegando as chaves e transformando em um array [name, link...]
+    const isNotEmpty = Object.keys(data).length > 0  
+    if(isNotEmpty){
+
+        data.subject = getSubject(data.subject)
+
+        // Adicionar dados a lista de proffys
+        proffys.push(data)
+        // E retornar para a pagina study
+        return res.redirect("/study")
+    } 
+    // Se não, mostrar a pagina give-classes
+    res.render("give-classes.html", {
+        subjects,
+        weekdays
+    });
+}
 
 
 // Servidor

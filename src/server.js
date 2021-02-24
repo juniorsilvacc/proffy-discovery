@@ -1,3 +1,4 @@
+// Dados
 const proffys = [
     {
         name: "Júnior Silva",
@@ -35,13 +36,43 @@ const proffys = [
     }
 ]
 
+const subjects = [
+        "Artes",
+        "Biologia",
+        "Ciências",
+        "Educação Física",
+        "Física",
+        "Geografia",
+        "História",
+        "Matemática",
+        "Português",
+        "Química",
+]
+
+const weekdays = [
+        "Domingo",
+        "Segunda-feira",
+        "Terça-feira",
+        "Quarta-feira",
+        "Quinta-feira",
+        "Sexta-feira",
+        "Sábado",
+]
+
+// Funcionalidades da aplicação
 function pageLanding(req, res){
     res.render("index.html");
 }
 
 
 function pageStudy(req, res){
-    res.render("study.html");
+    const filters = req.query
+    res.render("study.html", {
+        proffys,
+        filters,
+        subjects,
+        weekdays
+    });
 }
 
 
@@ -51,7 +82,7 @@ function pageGiveClasses(req, res){
 
 
 
-// Express
+// Servidor
 const express = require('express');
 const app = express();
 
